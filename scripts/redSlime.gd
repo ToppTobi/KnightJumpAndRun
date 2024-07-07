@@ -4,13 +4,12 @@ const speed = 25.0
 
 var direction = 1
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ray_cast_right = $RayCastRight
 @onready var ray_cast_left = $RayCastLeft
-@onready var animated_sprite = $AnimatedSprite2D
-@onready var collision_shape_die = $CollisionShapeDie
-@onready var player = $"../player"
+@onready var animated_sprite = $AnimationForRedSlime
+@onready var player = $"../../player"
 @onready var timer = $Head/Timer
+@onready var collision_shape_die = $Head/CollisionShapeDie
 
 
 func _process(delta):
@@ -27,7 +26,7 @@ func _on_head_body_entered(body):
 	print("DEAD")
 	if body == player:
 		body.velocity.y = -300
-		animated_sprite.play("die")
+		animated_sprite.play("redSlimeDied")
 		direction = 0
 		position.x += direction
 		timer.start(0.5)

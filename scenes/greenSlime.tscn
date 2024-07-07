@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=3 uid="uid://dlajuerllmb7c"]
+
+[ext_resource type="Script" path="res://scripts/greenSlime.gd" id="1_iwev7"]
+[ext_resource type="PackedScene" uid="uid://c43oimwkw1448" path="res://scenes/killzone.tscn" id="3_b85s2"]
+[ext_resource type="Texture2D" uid="uid://dy46e741gcob8" path="res://assets/sprites/slime_green.png" id="3_rmmeo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nln73"]
+atlas = ExtResource("3_rmmeo")
+region = Rect2(24, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bw2n4"]
+atlas = ExtResource("3_rmmeo")
+region = Rect2(48, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwyei"]
+atlas = ExtResource("3_rmmeo")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmqi1"]
+atlas = ExtResource("3_rmmeo")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_078jb"]
+atlas = ExtResource("3_rmmeo")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_garkq"]
+atlas = ExtResource("3_rmmeo")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f66ym"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nln73")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bw2n4")
+}],
+"loop": true,
+"name": &"greenSlimeDied",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwyei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmqi1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_078jb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_garkq")
+}],
+"loop": true,
+"name": &"greenSlimeIdle",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fjnq2"]
+size = Vector2(16, 3)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ijyb1"]
+size = Vector2(10, 10)
+
+[node name="greenSlime" type="Node2D"]
+script = ExtResource("1_iwev7")
+
+[node name="AnimationForGreenSlime" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_f66ym")
+animation = &"greenSlimeDied"
+autoplay = "greenSlimeIdle"
+
+[node name="Killzone" parent="." instance=ExtResource("3_b85s2")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_fjnq2")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, -7.5)
+target_position = Vector2(9, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, -7.5)
+target_position = Vector2(-9, 0)
+
+[node name="Head" type="Area2D" parent="."]
+position = Vector2(0, -1.5)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShapeDie" type="CollisionShape2D" parent="Head"]
+position = Vector2(-1, -6.5)
+shape = SubResource("RectangleShape2D_ijyb1")
+
+[node name="Timer" type="Timer" parent="Head"]
+wait_time = 0.5
+
+[connection signal="body_entered" from="Head" to="." method="_on_head_body_entered"]
+[connection signal="timeout" from="Head/Timer" to="." method="_on_timer_timeout"]
