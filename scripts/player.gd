@@ -1,13 +1,10 @@
 extends CharacterBody2D
 
 @export var SPEED = 150.0
-@export var MAX_JUMP_VELOCITY = -300.0
-@export var MIN_JUMP_VELOCITY = -250.0
-@export var jump_Buffer_Time := 0.01
-# Get the gravity from the project settings to be synced with RigidBody nodes.
+@export var JUMP_VELOCITY = -300.0
+@export var jump_Buffer_Time := 0.4
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var max_jump_timer = $MaxJumpTimer
 
 var jump_Buffer := false
 
@@ -56,9 +53,7 @@ func _physics_process(delta):
 	move_and_slide()
 
 func jump() -> void:
-	velocity.y = MAX_JUMP_VELOCITY
+	velocity.y = JUMP_VELOCITY
 
 func on_jump_buffer_timeout() -> void:
 	jump_Buffer = false
-
-
