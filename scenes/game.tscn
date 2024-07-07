@@ -784,6 +784,7 @@ layer_0/tile_data = PackedInt32Array(65535, 0, 0, 0, 0, 0, 65534, 0, 0, 1, 0, 0,
 [node name="player" parent="." instance=ExtResource("1_nximk")]
 z_index = 5
 wall_min_slide_angle = 0.349066
+jump_Buffer_Time = 0.075
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 position = Vector2(0, -7)
@@ -816,6 +817,21 @@ position = Vector2(80, -40)
 
 [node name="coin5" parent="Coins" instance=ExtResource("4_i810s")]
 position = Vector2(274, -104)
+
+[node name="coin7" parent="Coins" instance=ExtResource("4_i810s")]
+position = Vector2(306, -73)
+
+[node name="coin19" parent="Coins" instance=ExtResource("4_i810s")]
+position = Vector2(319, -87)
+
+[node name="coin20" parent="Coins" instance=ExtResource("4_i810s")]
+position = Vector2(336, -96)
+
+[node name="coin21" parent="Coins" instance=ExtResource("4_i810s")]
+position = Vector2(353, -87)
+
+[node name="coin22" parent="Coins" instance=ExtResource("4_i810s")]
+position = Vector2(365, -73)
 
 [node name="coin6" parent="Coins" instance=ExtResource("4_i810s")]
 position = Vector2(274, -119)
